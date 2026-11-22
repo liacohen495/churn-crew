@@ -1,0 +1,86 @@
+{
+  "selected_model": "random_forest",
+  "selection_rule": "highest ROC-AUC on the held-out test set",
+  "train_rows": 5634,
+  "test_rows": 1409,
+  "test_churn_rate": 0.2654,
+  "decision_threshold": 0.5,
+  "models": {
+    "baseline_majority": {
+      "accuracy": 0.7346,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "top10_capture": 0.1176,
+      "confusion_matrix": [
+        [
+          1035,
+          0
+        ],
+        [
+          374,
+          0
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "accuracy": 0.741,
+      "precision": 0.5077,
+      "recall": 0.7888,
+      "f1": 0.6178,
+      "roc_auc": 0.8426,
+      "top10_capture": 0.2888,
+      "confusion_matrix": [
+        [
+          749,
+          286
+        ],
+        [
+          79,
+          295
+        ]
+      ]
+    },
+    "random_forest": {
+      "accuracy": 0.7587,
+      "precision": 0.5312,
+      "recall": 0.7727,
+      "f1": 0.6296,
+      "roc_auc": 0.8458,
+      "top10_capture": 0.2888,
+      "confusion_matrix": [
+        [
+          780,
+          255
+        ],
+        [
+          85,
+          289
+        ]
+      ]
+    }
+  },
+  "top_drivers": {
+    "increase_churn": {
+      "TotalCharges": 0.338,
+      "Contract_Month-to-month": 0.335,
+      "InternetService_Fiber optic": 0.326,
+      "is_new_customer": 0.27,
+      "PaperlessBilling": 0.17,
+      "StreamingTV_Yes": 0.139,
+      "StreamingMovies_Yes": 0.115,
+      "PaymentMethod_Electronic check": 0.113
+    },
+    "decrease_churn": {
+      "tenure": -0.813,
+      "Contract_Two year": -0.371,
+      "MonthlyCharges": -0.283,
+      "avg_monthly_spend": -0.276,
+      "InternetService_DSL": -0.266,
+      "MultipleLines_No": -0.088,
+      "InternetService_No": -0.086,
+      "OnlineBackup_No internet service": -0.086
+    }
+  }
+}

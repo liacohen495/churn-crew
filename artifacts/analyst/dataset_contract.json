@@ -1,0 +1,220 @@
+{
+  "dataset": "telco_customer_churn",
+  "version": "1.0",
+  "file": "artifacts/analyst/clean_data.csv",
+  "primary_key": "customerID",
+  "target": {
+    "column": "Churn",
+    "positive_class": "Yes",
+    "allowed_values": [
+      "No",
+      "Yes"
+    ]
+  },
+  "min_rows": 1000,
+  "columns": {
+    "customerID": {
+      "dtype": "string",
+      "nullable": false,
+      "unique": true
+    },
+    "gender": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "Female",
+        "Male"
+      ]
+    },
+    "SeniorCitizen": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    },
+    "Partner": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    },
+    "Dependents": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    },
+    "tenure": {
+      "dtype": "number",
+      "nullable": false,
+      "min": 0,
+      "max": 108.0
+    },
+    "PhoneService": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    },
+    "MultipleLines": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No phone service",
+        "Yes"
+      ]
+    },
+    "InternetService": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "DSL",
+        "Fiber optic",
+        "No"
+      ]
+    },
+    "OnlineSecurity": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "OnlineBackup": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "DeviceProtection": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "TechSupport": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "StreamingTV": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "StreamingMovies": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "No internet service",
+        "Yes"
+      ]
+    },
+    "Contract": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "Month-to-month",
+        "One year",
+        "Two year"
+      ]
+    },
+    "PaperlessBilling": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    },
+    "PaymentMethod": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "Bank transfer (automatic)",
+        "Credit card (automatic)",
+        "Electronic check",
+        "Mailed check"
+      ]
+    },
+    "MonthlyCharges": {
+      "dtype": "number",
+      "nullable": false,
+      "min": 0,
+      "max": 178.125
+    },
+    "TotalCharges": {
+      "dtype": "number",
+      "nullable": false,
+      "min": 0,
+      "max": 13027.199999999999
+    },
+    "Churn": {
+      "dtype": "string",
+      "nullable": false,
+      "allowed_values": [
+        "No",
+        "Yes"
+      ]
+    }
+  },
+  "required_model_inputs": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges"
+  ],
+  "assumptions": [
+    "Each row is one customer at a single point in time (snapshot, not a time series).",
+    "Churn = 'Yes' means the customer left within the last month.",
+    "Blank TotalCharges belong to customers with tenure 0 and were set to 0.",
+    "SeniorCitizen was converted from 0/1 to No/Yes."
+  ],
+  "constraints": [
+    "No missing values in any column.",
+    "customerID must be unique.",
+    "tenure, MonthlyCharges and TotalCharges must be >= 0.",
+    "Categorical columns may only contain the listed allowed_values."
+  ]
+}
