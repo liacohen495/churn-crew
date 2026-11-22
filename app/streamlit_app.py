@@ -159,12 +159,23 @@ def metric_chart(comp: pd.DataFrame, metric: str) -> alt.Chart:
     return _base_chart((bars + labels).properties(height=170, title=metric))
 
 
-@st.cache_data
-def load():
+EDA_STATS = C.ANALYST_DIR / "eda_stats.json"
+DATA_FILES = (C.SCORED, C.METRICS, C.RUN_STATUS, EDA_STATS)
+
+
+def _file_versions() -> tuple:
+    """Modification time of every cached artifact; any change gives a new cache key."""
+    return tuple(p.stat().st_mtime_ns if p.exists() else None for p in DATA_FILES)
+
+
+@st.cache_data(max_entries=1)
+def load(versions: tuple):
+    # `versions` is part of the cache key: when an artifact file changes (e.g. after
+    # `python main.py`), the next rerun reads fresh data instead of a stale copy.
     scored = pd.read_csv(C.SCORED)
     metrics = json.loads(C.METRICS.read_text())
     status = json.loads(C.RUN_STATUS.read_text()) if C.RUN_STATUS.exists() else None
-    eda_path = C.ANALYST_DIR / "eda_stats.json"
+    eda_path = EDA_STATS
     eda = json.loads(eda_path.read_text()) if eda_path.exists() else None
     return scored, metrics, status, eda
 
@@ -195,7 +206,20 @@ if not C.SCORED.exists():
         st.rerun()
     st.stop()
 
-scored, metrics, status, eda = load()
+LOADED_VERSIONS = _file_versions()
+scored, metrics, status, eda = load(LOADED_VERSIONS)
+
+
+@st.fragment(run_every="5s")
+def _watch_artifacts():
+    """Reload the page as soon as the pipeline rewrites any artifact, even if nobody clicks."""
+    if _file_versions() != LOADED_VERSIONS:
+        st.rerun(scope="app")
+
+
+with st.sidebar:
+    _watch_artifacts()
+
 risk = st.sidebar.selectbox("Risk level", ["All risk levels", "High", "Medium", "Low"])
 contracts = st.sidebar.multiselect("Contract", sorted(scored["Contract"].unique()))
 search = st.sidebar.text_input("Search customer ID")
