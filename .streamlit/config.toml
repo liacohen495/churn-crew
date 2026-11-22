@@ -1,3 +1,41 @@
+[client]
+# Hide the Streamlit main menu and Deploy button for viewers.
+toolbarMode = "minimal"
+
 [theme]
-primaryColor = "#2563eb"
 base = "light"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+baseFontSize = 15
+primaryColor = "#4F46E5"
+linkColor = "#4338CA"
+backgroundColor = "#F7F8FA"
+secondaryBackgroundColor = "#EEF0F4"
+textColor = "#111827"
+borderColor = "#E5E7EB"
+dataframeBorderColor = "#E5E7EB"
+dataframeHeaderBackgroundColor = "#F9FAFB"
+dataframeHeaderTextColor = "#374151"
+baseRadius = "12px"
+buttonRadius = "10px"
+showWidgetBorder = true
+showSidebarBorder = true
+chartCategoricalColors = ["#4F46E5", "#858C99", "#A5B4FC"]
+
+# Muted status colours (risk pills, alerts). Text shades meet WCAG AA on their backgrounds.
+redColor = "#B42318"
+redBackgroundColor = "#FDECEA"
+redTextColor = "#9B1C14"
+orangeColor = "#B54708"
+orangeBackgroundColor = "#FEF3E2"
+orangeTextColor = "#8A3A05"
+greenColor = "#067647"
+greenBackgroundColor = "#E7F6EE"
+greenTextColor = "#05603A"
+blueColor = "#4F46E5"
+blueBackgroundColor = "#EEF2FF"
+blueTextColor = "#3730A3"
+
+[theme.sidebar]
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F3F4F6"
