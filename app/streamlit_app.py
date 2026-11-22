@@ -83,6 +83,8 @@ button[data-baseweb="tab"][aria-selected="true"] p {{ color: {INDIGO}; font-weig
 *:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible,
 [role="tab"]:focus-visible, [role="switch"]:focus-visible, [role="combobox"]:focus-visible {{
     outline: 2px solid {INDIGO} !important; outline-offset: 2px !important; }}
+/* No focus ring on mouse click: tabs only show it for keyboard focus */
+button[data-baseweb="tab"]:focus:not(:focus-visible) {{ outline: none !important; box-shadow: none !important; }}
 </style>
 """
 st.html(CSS)
@@ -302,10 +304,14 @@ with tab3:
     comp = pd.DataFrame(rows)
     with st.container(key="card_models_table"):
         card_heading("Model comparison", "Held-out test set · selected model highlighted in indigo")
-        st.dataframe(comp.drop(columns="selected"), hide_index=True, width="stretch",
-                     column_config={c: st.column_config.NumberColumn(format="%.3f")
-                                    for c in ["ROC-AUC", "Recall", "Precision", "Accuracy",
-                                              "Churners in top 10%"]})
+        table = comp.drop(columns="selected")
+        table["Churners in top 10%"] = (table["Churners in top 10%"] * 100).round()
+        st.dataframe(table, hide_index=True, width="stretch",
+                     column_config={
+                         **{c: st.column_config.NumberColumn(format="%.3f")
+                            for c in ["ROC-AUC", "Recall", "Precision", "Accuracy"]},
+                         "Churners in top 10%": st.column_config.NumberColumn(format="%.0f%%"),
+                     })
     with st.container(key="card_models_chart"):
         cols = st.columns(3, gap="medium")
         for col, metric in zip(cols, ["ROC-AUC", "Recall", "Accuracy"]):
